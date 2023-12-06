@@ -3,10 +3,12 @@ detector: yolov8
 
 ## Environment
 python=3.9.13
+```
 pip install Pillow
 pip install ultralytics
 pip uninstall opencv-python
 pip install opencv-python-headless
+```
 
 ## Prepare datasets
 ### OSLD
