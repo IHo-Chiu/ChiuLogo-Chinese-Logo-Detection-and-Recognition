@@ -12,6 +12,7 @@ pip install opencv-python-headless
 
 ## Prepare datasets
 ### OSLD
+https://drive.google.com/file/d/1znu_IJs8k2FdxqYma4KDbP4bQIGlPSSu/view?usp=drive_link
 ```
 unzip osld.zip
 python osld2yolo.py
