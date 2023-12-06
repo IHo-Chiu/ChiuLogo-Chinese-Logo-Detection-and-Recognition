@@ -1,0 +1,7 @@
+path: /home/hugoc/thesis/ChiuLogo/LogoDetection/osld_yolo/
+train: images/train
+val: images/val
+test: images/test
+
+names:
+    0: Logo
