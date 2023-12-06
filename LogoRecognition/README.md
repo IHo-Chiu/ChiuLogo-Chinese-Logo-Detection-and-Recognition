@@ -3,6 +3,7 @@
 ## Environment
 python=3.9.13
 ```
+pip install torch
 pip install pip-tools
 
 cd STR
@@ -22,7 +23,10 @@ pip install pytorch-metric-learning
 export PYTHONPATH=STR/
 ```
 ## Our pretrained model
-
+### Best
+https://drive.google.com/file/d/1hvE7E-XeIwG0c9IIGk9NOpDp7tDbb5I2/view?usp=sharing
+### OCR Best
+https://drive.google.com/file/d/13otW5eUo7-Mthms0vdy5XOhk3Q7f8U3t/view?usp=sharing
 ## Prepare datasets
 download LogoDet-3K to dataset folder
 
