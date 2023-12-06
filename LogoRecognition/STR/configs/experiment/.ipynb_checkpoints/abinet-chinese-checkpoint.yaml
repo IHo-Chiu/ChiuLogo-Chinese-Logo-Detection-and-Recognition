@@ -1,0 +1,10 @@
+# @package _global_
+defaults:
+  - override /model: abinet
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+
+data:
+  num_workers: 4
+
+find_unused_parameters: false

@@ -1,0 +1,16 @@
+
+
+sudo apt install make
+sudo apt install build-essential
+
+platform=cu117
+make torch-${platform}
+pip install -r requirements/core.${platform}.txt -e .[train,test]
+pip install pip-tools
+make clean-reqs reqs
+
+pip install opencv-python-headless
+
+
+./train.py +experiment=crnn-chinese
+./test.py outputs/<model>/<timestamp>/checkpoints/last.ckpt --new --chi 

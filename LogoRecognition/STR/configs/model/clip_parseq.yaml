@@ -1,0 +1,19 @@
+name: clip_parseq
+_target_: strhub.models.clip_parseq.system.CLIP_PARSeq
+
+# Architecture
+embed_dim: 512
+dec_num_heads: 8
+dec_mlp_ratio: 4
+dec_depth: 1
+
+# Training
+lr: 7e-4
+perm_num: 6
+perm_forward: true
+perm_mirrored: true
+dropout: 0.1
+
+# Decoding mode (test)
+decode_ar: true
+refine_iters: 1

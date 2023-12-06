@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - override /model: crnn
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+  
+data:
+  num_workers: 8
+
+trainer:
+  max_epochs: 20
+
+find_unused_parameters: false

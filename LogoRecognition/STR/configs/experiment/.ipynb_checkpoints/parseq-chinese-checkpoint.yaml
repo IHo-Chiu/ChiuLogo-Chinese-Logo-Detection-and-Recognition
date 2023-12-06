@@ -1,0 +1,20 @@
+# @package _global_
+defaults:
+  - override /model: parseq
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+
+model:
+  batch_size: 256
+  img_size: [ 224, 224 ]  # [ height, width ]
+  patch_size: [ 16, 16 ]  # [ height, width ]
+  
+data:
+  num_workers: 8
+
+trainer:
+  max_epochs: 20
+  # devices: 1
+  accumulate_grad_batches: 1
+
+find_unused_parameters: false

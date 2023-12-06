@@ -1,0 +1,20 @@
+# @package _global_
+defaults:
+  - override /model: clip_parseq
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+
+model:
+  # batch_size: 64
+  img_size: [ 224, 224 ] 
+
+data:
+  img_size: [ 224, 224 ]  # [ height, width ]
+  num_workers: 4
+
+trainer:
+  max_epochs: 20
+  # devices: 1
+  # accumulate_grad_batches: 6
+
+find_unused_parameters: false

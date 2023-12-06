@@ -1,0 +1,10 @@
+# @package _global_
+defaults:
+  - override /model: trba
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+
+data:
+  num_workers: 8
+
+find_unused_parameters: false

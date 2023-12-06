@@ -1,0 +1,14 @@
+# @package _global_
+defaults:
+  - override /model: vitstr
+  - override /charset: 7545_chinese
+  - override /dataset: chinese
+
+model:
+  img_size: [ 32, 128 ]  # [ height, width ]
+  patch_size: [ 4, 8 ]  # [ height, width ]
+
+data:
+  num_workers: 8
+
+find_unused_parameters: false
