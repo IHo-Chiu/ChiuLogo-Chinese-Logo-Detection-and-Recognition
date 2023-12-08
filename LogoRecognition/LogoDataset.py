@@ -30,6 +30,7 @@ class LogoDataset(Dataset):
         # get all data in classes
         self.data = []
         for idx, label in enumerate(self.classes):
+            # if idx > 20: break
             class_dir = os.path.join(self.dir, label)
             image_paths = get_paths(class_dir, ['jpg'])
             random.shuffle(image_paths)

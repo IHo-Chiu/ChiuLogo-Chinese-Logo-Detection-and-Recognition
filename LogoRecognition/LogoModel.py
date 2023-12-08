@@ -14,6 +14,7 @@ from pytorch_metric_learning import miners, losses
 from pytorch_metric_learning.distances import CosineSimilarity
 
 from sklearn.neighbors import NearestNeighbors
+import torch.nn.functional as F
 
 class LogoModel(pl.LightningModule):
     def __init__(self, device='cuda', lr=(2e-6, 2e-4)):
@@ -24,7 +25,7 @@ class LogoModel(pl.LightningModule):
         convert_models_to_fp32(self.clip)
         del clip
 
-        ocr_model_path="/home/hugoc/thesis/STR/outputs/parseq/2023-11-24_16-06-15/checkpoints/best.ckpt"
+        ocr_model_path="parseq_best.ckpt"
         ocr = load_from_checkpoint(ocr_model_path, **parse_model_args([])).to(device)
         self.ocr = ocr.encoder
         del ocr
@@ -121,3 +122,34 @@ class LogoModel(pl.LightningModule):
         ocr_optimizer = torch.optim.AdamW(self.ocr.parameters(), lr=self.ocr_lr)
         ocr_loss_optimizer = torch.optim.AdamW(self.ocr_loss_func.parameters(), lr=self.ocr_lr)
         return clip_optimizer, clip_loss_optimizer, ocr_optimizer, ocr_loss_optimizer
+
+    def predict(self, query_features, gallery_features, gallery_labels, beta=70):
+        affinity = query_features @ gallery_features.permute(1, 0)
+        affinity = affinity * (affinity < .99)
+        tip_logits = ((-1) * (beta - beta * affinity)).exp() @ F.one_hot(gallery_labels.long()).float()
+        predict_labels = tip_logits.topk(1, 1, True, True)[1].t()[0]
+        return predict_labels
+
+    def search_beta(self, gallery_features, gallery_labels, query_features, query_labels):
+        
+        search_scale = [1000, 5]
+        search_step = [200, 20]
+        
+        beta_list = [i * (search_scale[0] - 0.1) / search_step[0] + 0.1 for i in range(search_step[0])]
+    
+        best_acc = 0
+        best_beta = 0
+    
+        for beta in beta_list:
+            predict_labels = self.predict(query_features, gallery_features, gallery_labels, beta)
+            correct = np.sum(predict_labels.cpu().numpy() == query_labels.cpu().numpy())
+            acc = 100 * correct / query_labels.shape[0]
+        
+            if acc > best_acc:
+                print("New best setting, beta: {:.2f}; accuracy: {:.2f}".format(beta, acc))
+                best_acc = acc
+                best_beta = beta
+    
+        print("\nAfter searching, the best accuarcy: {:.2f}.\n".format(best_acc))
+    
+        return best_beta
