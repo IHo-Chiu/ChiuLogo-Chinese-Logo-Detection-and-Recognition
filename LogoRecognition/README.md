@@ -10,7 +10,6 @@ cd STR
 platform=cu117
 make torch-${platform}
 pip install -r requirements/core.${platform}.txt -e .[train,test]
-pip install pip-tools
 make clean-reqs reqs
 cd ..
 
@@ -19,6 +18,7 @@ pip install -e .
 cd ..
 
 pip install pytorch-metric-learning
+pip install lightning
 
 export PYTHONPATH=STR/
 ```
@@ -48,3 +48,7 @@ python train.py
 python evaluate.py
 ```
 ## Predict
+```
+python predict.py
+```
+
