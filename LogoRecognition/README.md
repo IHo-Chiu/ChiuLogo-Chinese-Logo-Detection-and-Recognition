@@ -55,6 +55,11 @@ python dataset/split_openlogo.py
 ```
 python train.py
 ```
+## Search beta value
+```
+python search_beta.py
+```
+
 ## Evaluate
 ```
 python evaluate.py
