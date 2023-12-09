@@ -69,7 +69,6 @@ python evaluate.py
 ## Usage
 ### Add Logo
 ```
-rm latent_space.pkl
 python add_logo.py dataset/demo/cropped_logos
 ```
 ### Predict
