@@ -51,6 +51,9 @@ python dataset/crop_openlogo.py
 python dataset/split_openlogo.py
 ```
 
+### Custom Dataset
+directory structure: dataset/dataset_name/logo_name/image_files
+
 ## Train
 ```
 python train.py
@@ -59,13 +62,18 @@ python train.py
 ```
 python search_beta.py
 ```
-
 ## Evaluate
 ```
 python evaluate.py
 ```
-## Predict
+## Usage
+### Add Logo
 ```
-python predict.py
+rm latent_space.pkl
+python add_logo.py dataset/demo/cropped_logos
+```
+### Predict
+```
+python predict.py dataset/demo/test_images
 ```
 
