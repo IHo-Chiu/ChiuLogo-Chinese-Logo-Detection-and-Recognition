@@ -85,7 +85,7 @@ if __name__ == '__main__':
     print("\n-------- Evaluating on the test set. --------")
 
     beta = clip_model.search_beta(gallery_features, gallery_labels, query_features, query_labels)
-    predict_labels = clip_model.predict(query_features, gallery_features, gallery_labels, beta)
+    predict_labels, confidences = clip_model.predict(query_features, gallery_features, gallery_labels, beta)
 
     correct = np.sum(predict_labels.cpu().numpy() == query_labels.cpu().numpy())
     acc = 100 * correct / query_labels.shape[0]

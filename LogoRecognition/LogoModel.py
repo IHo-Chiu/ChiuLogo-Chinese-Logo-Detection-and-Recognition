@@ -128,7 +128,8 @@ class LogoModel(pl.LightningModule):
         affinity = affinity * (affinity < .99)
         tip_logits = ((-1) * (beta - beta * affinity)).exp() @ F.one_hot(gallery_labels.long()).float()
         predict_labels = tip_logits.topk(1, 1, True, True)[1].t()[0]
-        return predict_labels
+        confidences = affinity.max(dim=1)[0]
+        return predict_labels, confidences
 
     def search_beta(self, gallery_features, gallery_labels, query_features, query_labels):
         
@@ -141,7 +142,7 @@ class LogoModel(pl.LightningModule):
         best_beta = 0
     
         for beta in beta_list:
-            predict_labels = self.predict(query_features, gallery_features, gallery_labels, beta)
+            predict_labels, confidences = self.predict(query_features, gallery_features, gallery_labels, beta)
             correct = np.sum(predict_labels.cpu().numpy() == query_labels.cpu().numpy())
             acc = 100 * correct / query_labels.shape[0]
         

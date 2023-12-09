@@ -4,7 +4,7 @@ def get_paths(root, sub_titles):
     paths = []
     for path, subdirs, files in os.walk(root):
         for name in files:
-            if name[-3:] not in sub_titles :	
+            if os.path.splitext(name)[1].lower()[1:] not in sub_titles :	
                 continue
             if '/.i' in path:
                 continue
